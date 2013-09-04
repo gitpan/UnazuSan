@@ -53,7 +53,7 @@
    "provides" : {
       "UnazuSan" : {
          "file" : "lib/UnazuSan.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       }
    },
    "release_status" : "stable",
@@ -67,5 +67,5 @@
          "web" : "https://github.com/Songmu/p5-UnazuSan"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }

@@ -27,7 +27,7 @@ no_index:
 provides:
   UnazuSan:
     file: lib/UnazuSan.pm
-    version: 0.01
+    version: 0.02
 requires:
   AnySan: 0.10
   perl: 5.010
@@ -35,4 +35,4 @@ resources:
   bugtracker: https://github.com/Songmu/p5-UnazuSan/issues
   homepage: https://github.com/Songmu/p5-UnazuSan
   repository: git://github.com/Songmu/p5-UnazuSan.git
-version: 0.01
+version: 0.02
