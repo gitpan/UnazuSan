@@ -3,7 +3,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 use AnySan;
 use AnySan::Provider::IRC;
@@ -18,6 +18,7 @@ sub new {
     $self->{port}               ||= 6667;
     $self->{post_interval}      //= 2;
     $self->{reconnect_interval} //= 3;
+    $self->{receive_commands}   //= ['PRIVMSG'];
 
     my ($irc, $is_connect, $connector);
     $connector = sub {
@@ -30,6 +31,7 @@ sub new {
             user       => $self->{user},
             interval   => $self->{post_interval},
             enable_ssl => $self->{enable_ssl},
+            recive_commands => $self->{receive_commands},
             on_connect => sub {
                 my ($con, $err) = @_;
                 if (defined $err) {
@@ -89,7 +91,7 @@ sub on_command {
 sub _build_command_reg {
     my ($nick, $command) = @_;
 
-    my $prefix = '^\s*'.quotemeta($nick). '[:\s]\s*' . quotemeta($command);
+    my $prefix = '^\s*'.quotemeta($nick). '_*[:\s]\s*' . quotemeta($command);
 }
 
 sub run {
@@ -165,6 +167,12 @@ UnazuSan - IRC reaction bot framework
             say $match;
             say $receive->message;
         },
+    );
+    $unazu_san->on_command(
+        help => sub {
+            my ($receive, @args) = @_;
+            $receive->reply('help '. ($args[0] || ''));
+        }
     );
     $unazu_san->run;
 
